@@ -34,6 +34,7 @@ def _5xx():
 
 
 def map_code_to_message(status_code):
+    """Mapper to convert status code to understandable message"""
     switcher = {
         '1': _1xx,
         '2': _2xx,
