@@ -7,7 +7,7 @@ from django.utils import timezone
 from .lib.custom_status_code import map_code_to_message
 from .models import UrlUnderInvestigation, Investigation
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 
 OPTIONS = ['BASIC']
 
