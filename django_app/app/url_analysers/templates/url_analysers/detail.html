@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+    <h1>{{ uui.url }} - <a href="{{ uui.url }}"> (open ˆ) </a></h1>
+    <h3>Name:{{ uui.mnemonic_name }} </h3>
+    <form action="{% url 'url_analysers:spy' uui.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>{{ uui.mnemonic_name }}</h1></legend>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            {% for choice in options %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice }}">
+                <label for="choice{{ forloop.counter }}">{{ choice }}</label><br>
+            {% endfor %}
+            <input type="text" name="regex" id="{{uui.id}}" value=""> *regex
+        </fieldset>
+        <input type="submit" value="Spy">
+    </form>
+
+    <ul><h6>History</h6>
+        Success: {{uui.requests_successfully}}
+        Fail: {{uui.requests_failed}}
+        Warning: {{uui.requests_warning}}
+    {% for investigation in uui.investigation_set.all %}
+        <li>{{ investigation.status_code }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
