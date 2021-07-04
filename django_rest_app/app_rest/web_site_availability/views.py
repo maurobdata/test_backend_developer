@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 
 from rest_framework.response import Response
 
+from .lib.request_handler import get_generic_check_request
 from .models import WebSite, SingleCheckRequest
 
 from .serializers import WebSiteSerializer, WebSiteCheckRequestSerializer, SingleCheckRequestSerializer
@@ -34,8 +35,10 @@ def web_site_check_request(request, web_site_id):
         serializer = WebSiteCheckRequestSerializer(check_requests, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
-        check_request = web_site.websitecheckrequest_set.create()
-        serializer = WebSiteCheckRequestSerializer(instance=check_request, data=request.data)
+        request.data['url'] = web_site.url
+        data_check_request = get_generic_check_request(request.data)
+        check_request = web_site.websitecheckrequest_set.create(**data_check_request)
+        serializer = WebSiteCheckRequestSerializer(instance=check_request, data=data_check_request)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -50,7 +53,11 @@ def single_check_request(request):
         serializer = SingleCheckRequestSerializer(check_requests, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
-        serializer = SingleCheckRequestSerializer(data=request.data)
+        url = request.data.get('url')
+        data_check_request = get_generic_check_request(request.data)
+        data_check_request['url'] = url
+        check_request = SingleCheckRequest(**data_check_request)
+        serializer = SingleCheckRequestSerializer(instance=check_request, data=data_check_request)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

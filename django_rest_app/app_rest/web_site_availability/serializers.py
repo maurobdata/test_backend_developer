@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import WebSite, WebSiteCheckRequest, SingleCheckRequest
+from .models import WebSite, WebSiteCheckRequest, SingleCheckRequest, CheckRequest
 
 
 class WebSiteSerializer(serializers.ModelSerializer):
@@ -20,4 +20,10 @@ class WebSiteCheckRequestSerializer(serializers.ModelSerializer):
 class SingleCheckRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = SingleCheckRequest
+        fields = '__all__'
+
+
+class CheckRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CheckRequest
         fields = '__all__'

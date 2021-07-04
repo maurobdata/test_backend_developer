@@ -39,8 +39,10 @@ class CheckRequest(TimeStampMixin):
     response_time = models.FloatField(null=True, editable=False)
     status_code = models.IntegerField(null=True, editable=False)
     response = models.TextField(max_length=100000, null=True, editable=False)
+    # response = models.BinaryField() will be more efficient
     regular_expression = models.CharField(max_length=200, null=True, validators=[RegexValidator])
     match_regular_expression = models.BooleanField(null=True, editable=False)
+    #pattern_regular_expression = models.CharField(max_length=200, null=True)
     lib_request_type = models.CharField(max_length=200, null=True, editable=False)
 
     class Meta:
