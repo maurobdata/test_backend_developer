@@ -35,13 +35,20 @@ class WebSite(TimeStampMixin):
                f"{self.favourite} \n"
 
 
-class WebSiteCheckRequest(TimeStampMixin):
-    url_under_investigation = models.ForeignKey(WebSite, on_delete=models.CASCADE, editable=False)
+class CheckRequest(TimeStampMixin):
     response_time = models.FloatField(null=True, editable=False)
     status_code = models.IntegerField(null=True, editable=False)
     response = models.TextField(max_length=100000, null=True, editable=False)
     regular_expression = models.CharField(max_length=200, null=True, validators=[RegexValidator])
     match_regular_expression = models.BooleanField(null=True, editable=False)
+    lib_request_type = models.CharField(max_length=200, null=True, editable=False)
+
+    class Meta:
+        abstract = True
+
+
+class WebSiteCheckRequest(CheckRequest):
+    url_web_site = models.ForeignKey(WebSite, on_delete=models.CASCADE, editable=False)
 
     def __str__(self):
         return f"Web Site Check Request: \n " \
@@ -50,16 +57,12 @@ class WebSiteCheckRequest(TimeStampMixin):
                f"{self.status_code} \n" \
                f"{self.regular_expression} \n" \
                f"{self.match_regular_expression} \n" \
-               f"{self.response} \n"
+               f"{self.lib_request_type} \n" \
+               f"{self.response}"
 
 
-class SingleCheckRequest(TimeStampMixin):
+class SingleCheckRequest(CheckRequest):
     url = models.CharField(max_length=200, validators=[URLValidator])
-    response_time = models.FloatField(null=True, editable=False)
-    status_code = models.IntegerField(null=True, editable=False)
-    response = models.TextField(max_length=100000, null=True, editable=False)
-    regular_expression = models.CharField(max_length=200, null=True, validators=[RegexValidator])
-    match_regular_expression = models.BooleanField(null=True, editable=False)
 
     def __str__(self):
         return f"Single Check Request: \n " \
@@ -68,4 +71,5 @@ class SingleCheckRequest(TimeStampMixin):
                f"{self.status_code} \n" \
                f"{self.regular_expression} \n" \
                f"{self.match_regular_expression} \n" \
+               f"{self.lib_request_type} \n" \
                f"{self.response} \n"
