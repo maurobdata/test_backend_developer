@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator, RegexValidator
 from django.shortcuts import get_object_or_404
 
-from rest_framework import status
+from rest_framework import status, viewsets, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -13,25 +13,30 @@ from .models import WebSite, SingleCheckRequest
 from .serializers import WebSiteSerializer, WebSiteCheckRequestSerializer, SingleCheckRequestSerializer
 
 
-@api_view(['GET', 'POST'])
-def web_site(request):
-    """Return all web sites, or create a new one."""
-    if request.method == 'GET':
-        web_sites = WebSite.objects.all()
-        serializer = WebSiteSerializer(web_sites, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        url = request.data.get('url')
-        try:
-            validator = URLValidator()
-            validator(url)
-        except ValidationError as url_error:
-            return Response(url_error, status=status.HTTP_400_BAD_REQUEST)
-        serializer = WebSiteSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class WebSiteViewSet(viewsets.ModelViewSet):
+    queryset = WebSite.objects.all().order_by('-created_at')
+    serializer_class = WebSiteSerializer
+    # permission_classes = [permissions.IsAuthenticated]
+
+    @api_view(['GET', 'POST'])
+    def web_site(self, request):
+        """Return all web sites, or create a new one."""
+        if request.method == 'GET':
+            web_sites = self.queryset
+            serializer = self.serializer_class(web_sites, many=True)
+            return Response(serializer.data)
+        elif request.method == 'POST':
+            url = request.data.get('url')
+            try:
+                validator = URLValidator()
+                validator(url)
+            except ValidationError as url_error:
+                return Response(url_error, status=status.HTTP_400_BAD_REQUEST)
+            serializer = WebSiteSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'POST'])
@@ -69,33 +74,39 @@ def web_site_check_request(request, web_site_id):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'POST'])
-def single_check_request(request):
-    """Return all single check requests, or create a new one."""
-    if request.method == 'GET':
-        check_requests = SingleCheckRequest.objects.all()
-        serializer = SingleCheckRequestSerializer(check_requests, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        url = request.data.get('url')
-        try:
-            validator = URLValidator()
-            validator(url)
-        except ValidationError as url_error:
-            return Response(url_error, status=status.HTTP_400_BAD_REQUEST)
-        regular_expression = request.data.get('regular_expression')
-        if regular_expression:
-            try:
-                validator = RegexValidator()
-                validator(regular_expression)
-            except ValidationError as reg_error:
-                return Response(reg_error, status=status.HTTP_400_BAD_REQUEST)
+class SingleCheckRequestViewSet(viewsets.ModelViewSet):
+    queryset = SingleCheckRequest.objects.all().order_by('-created_at')
+    serializer_class = SingleCheckRequestSerializer
+    url_validator = URLValidator()
+    reg_validator = RegexValidator()
 
-        data_check_request = get_generic_check_request(request.data)
-        data_check_request['url'] = url
-        check_request = SingleCheckRequest(**data_check_request)
-        serializer = SingleCheckRequestSerializer(instance=check_request, data=data_check_request)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # permission_classes = [permissions.IsAuthenticated]
+
+    @api_view(['GET', 'POST'])
+    def single_check_request(self, request):
+        """Return all single check requests, or create a new one."""
+        if request.method == 'GET':
+            check_requests = self.queryset
+            serializer = self.serializer_class(check_requests, many=True)
+            return Response(serializer.data)
+        elif request.method == 'POST':
+            url = request.data.get('url')
+            try:
+                self.url_validator(url)
+            except ValidationError as url_error:
+                return Response(url_error, status=status.HTTP_400_BAD_REQUEST)
+            regular_expression = request.data.get('regular_expression')
+            if regular_expression:
+                try:
+                    self.reg_validator(regular_expression)
+                except ValidationError as reg_error:
+                    return Response(reg_error, status=status.HTTP_400_BAD_REQUEST)
+
+            data_check_request = get_generic_check_request(request.data)
+            data_check_request['url'] = url
+            check_request = SingleCheckRequest(**data_check_request)
+            serializer = SingleCheckRequestSerializer(instance=check_request, data=data_check_request)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

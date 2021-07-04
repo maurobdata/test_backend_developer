@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import WebSite, WebSiteCheckRequest, SingleCheckRequest
+
+admin.site.register(WebSite)
+admin.site.register(WebSiteCheckRequest)
+admin.site.register(SingleCheckRequest)
