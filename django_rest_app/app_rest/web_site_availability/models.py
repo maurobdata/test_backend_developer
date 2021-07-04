@@ -52,7 +52,7 @@ class WebSiteCheckRequest(CheckRequest):
 
     def __str__(self):
         return f"Web Site Check Request: \n " \
-               f"{self.url_under_investigation} \n" \
+               f"{self.url_web_site} \n" \
                f"{self.response_time} \n" \
                f"{self.status_code} \n" \
                f"{self.regular_expression} \n" \
