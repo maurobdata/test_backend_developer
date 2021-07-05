@@ -25,8 +25,9 @@ def web_site_check_request(request, web_site_id):
         serializer = WebSiteCheckRequestSerializer(check_requests, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
-        request.data['url'] = web_site.url
-        data_check_request = get_generic_check_request(request.data)
+        mutable_request_data = request.data.copy()
+        mutable_request_data['url'] = web_site.url
+        data_check_request = get_generic_check_request(mutable_request_data)
         check_request = web_site.websitecheckrequest_set.create(**data_check_request)
         serializer = WebSiteCheckRequestSerializer(instance=check_request, data=data_check_request)
         if serializer.is_valid():

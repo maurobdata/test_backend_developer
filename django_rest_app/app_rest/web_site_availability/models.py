@@ -29,9 +29,7 @@ class WebSite(TimeStampMixin):
                f"{self.note} \n" \
                f"{self.n_requests_success} \n" \
                f"{self.n_requests_fail} \n" \
-               f"{self.n_requests_warning} \n" \
-               f"{self.favourite} \n"
-
+               f"{self.n_requests_warning} \n"
 
 class CheckRequest(TimeStampMixin):
     response_time = models.FloatField(null=True, editable=False)

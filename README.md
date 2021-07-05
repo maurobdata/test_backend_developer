@@ -64,7 +64,7 @@ Click on http://127.0.0.1:8000/check_requests/ or run:
     }
 or use browser interface:
 
-![img.png](imgs/img_base_check_requests.png)
+![img.png](imgs/base_check_requests.png)
 
 in both cases it will show the check request just saved to db.
 In the check request it is possible to insert the optional regex parameter asking the system to check 
@@ -88,7 +88,7 @@ Click on http://127.0.0.1:8000/sites/ or run:
 
 To add new Web Site to be monitored.
 
-![img.png](imgs/base_site_request.png)
+![img.png](imgs/site_request.png)
 
 Thus enabling a section dedicated to the check requests for that particular url, 
 and the possibility to keep track of requests completed with success, failure, warning.
