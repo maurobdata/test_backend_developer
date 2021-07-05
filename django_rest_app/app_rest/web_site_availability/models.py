@@ -5,7 +5,7 @@ from django.db import models
 class TimeStampMixin(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
-    completed_at = models.DateTimeField(null=True, editable=False)
+    completed_at = models.DateTimeField(null=True, blank=True, editable=False)
 
     class Meta:
         abstract = True
@@ -15,14 +15,14 @@ class WebSite(TimeStampMixin):
     # http://www.faqs.org/rfcs/rfc2616.html - unlimited theoretical
     # https://datatracker.ietf.org/doc/html/rfc7230#section-3.1.1 - suggestion
     # may_be_supported_url = models.TextField() - up to 2048 some support them
-    url = models.CharField(max_length=200, validators=[URLValidator])
+    url = models.CharField(max_length=200, validators=[URLValidator()])
 
-    mnemonic_name = models.CharField(max_length=200, null=True)
-    note = models.CharField(max_length=200, null=True)
+    mnemonic_name = models.CharField(max_length=200, blank=True, null=True)
+    note = models.CharField(max_length=200, blank=True, null=True)
     n_requests_success = models.IntegerField(default=0, editable=False)
     n_requests_fail = models.IntegerField(default=0, editable=False)
     n_requests_warning = models.IntegerField(default=0, editable=False)
-    favourite = models.BooleanField(null=True)
+    favourite = models.BooleanField(null=True, blank=True,)
 
     def __str__(self):
         return f"Web Site: \n " \
@@ -40,7 +40,7 @@ class CheckRequest(TimeStampMixin):
     status_code = models.IntegerField(null=True, editable=False)
     response = models.TextField(max_length=100000, null=True, editable=False)
     # response = models.BinaryField() will be more efficient
-    regular_expression = models.CharField(max_length=200, null=True, validators=[RegexValidator])
+    regular_expression = models.CharField(max_length=200, null=True, validators=[RegexValidator()])
     match_regular_expression = models.BooleanField(null=True, editable=False)
     #pattern_regular_expression = models.CharField(max_length=200, null=True)
     lib_request_type = models.CharField(max_length=200, null=True, editable=False)
@@ -64,7 +64,7 @@ class WebSiteCheckRequest(CheckRequest):
 
 
 class SingleCheckRequest(CheckRequest):
-    url = models.CharField(max_length=200, validators=[URLValidator])
+    url = models.CharField(max_length=200, validators=[URLValidator()])
 
     def __str__(self):
         return f"Single Check Request: \n " \
