@@ -10,8 +10,6 @@ class WebSiteSerializer(serializers.ModelSerializer):
 
 
 class WebSiteCheckRequestSerializer(serializers.ModelSerializer):
-    # url_web_site = WebSiteSerializer()
-
     class Meta:
         model = WebSiteCheckRequest
         fields = '__all__'
