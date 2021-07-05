@@ -1,7 +1,6 @@
-from django.core.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
 
-from rest_framework import status, viewsets, permissions
+from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -15,7 +14,6 @@ from .serializers import WebSiteSerializer, WebSiteCheckRequestSerializer, Singl
 class WebSiteViewSet(viewsets.ModelViewSet):
     queryset = WebSite.objects.all().order_by('-created_at')
     serializer_class = WebSiteSerializer
-    # permission_classes = [permissions.IsAuthenticated]
 
 
 @api_view(['GET', 'POST'])
@@ -48,8 +46,6 @@ def web_site_check_request(request, web_site_id):
 class SingleCheckRequestViewSet(viewsets.ModelViewSet):
     queryset = SingleCheckRequest.objects.all().order_by('-created_at')
     serializer_class = SingleCheckRequestSerializer
-
-    # permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         """Return all single check requests, or create a new one."""
