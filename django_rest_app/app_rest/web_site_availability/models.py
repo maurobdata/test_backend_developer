@@ -22,7 +22,6 @@ class WebSite(TimeStampMixin):
     n_requests_success = models.IntegerField(default=0, editable=False)
     n_requests_fail = models.IntegerField(default=0, editable=False)
     n_requests_warning = models.IntegerField(default=0, editable=False)
-    favourite = models.BooleanField(null=True, blank=True,)
 
     def __str__(self):
         return f"Web Site: \n " \
