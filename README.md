@@ -10,7 +10,7 @@ to pass the test proposed in the file test_backend_developer.txt
 
     $ virtualenv venv
     $ source venv/bin/activate
-    (venv) $ pip install requirements.txt
+    (venv) $ pip install -r requirements.txt
     (venv) $ cd django_rest_app/app_rest
 
 (This project is made with: https://www.django-rest-framework.org/ 
