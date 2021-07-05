@@ -12,14 +12,29 @@ from .serializers import WebSiteSerializer, WebSiteCheckRequestSerializer, Singl
 
 
 class WebSiteViewSet(viewsets.ModelViewSet):
+    """
+    The WebSite allows you to save a url to make multiple requests.
+    Url is required, other fields are for your pleasure.
+    You could use this if you're on the fence ;)
+
+    {"url": "[https://maieuticallabs.it/lavora-con-noi/](https://maieuticallabs.it/lavora-con-noi/)"}
+
+    Then insert the id received to your url and navigate to:
+    [http://127.0.0.1:8000/sites/insert_id_here/requests/](http://127.0.0.1:8000/sites/1/requests/)"""
     queryset = WebSite.objects.all().order_by('-created_at')
     serializer_class = WebSiteSerializer
 
 
 @api_view(['GET', 'POST'])
 def web_site_check_request(request, web_site_id):
+    """
+    Make as many Check Requests as you want to the url of this
+    WebSite by clicking on the POST button. Optionally add
+    search options with {"regular_expression": "insert_regex_here"}.
+    (create here: [https://regex101.com/](https://regex101.com/))
+    """
+
     web_site = get_object_or_404(WebSite, pk=web_site_id)
-    """Return all web site check requests for existing web site, or create a new one."""
     if request.method == 'GET':
         check_requests = web_site.websitecheckrequest_set.all()
         serializer = WebSiteCheckRequestSerializer(check_requests, many=True)
@@ -45,6 +60,16 @@ def web_site_check_request(request, web_site_id):
 
 
 class SingleCheckRequestViewSet(viewsets.ModelViewSet):
+    """
+    Make control requests with [https://docs.python-requests.org/en/master/](https://docs.python-requests.org/en/master/)
+    by entering the url to contact and a regular expression (optional).
+    For example you could try ;)
+
+    {
+        "url": "[https://maieuticallabs.it/lavora-con-noi/](https://maieuticallabs.it/lavora-con-noi/)",
+        "regular_expression": "/*Yes, I can"
+    }
+    """
     queryset = SingleCheckRequest.objects.all().order_by('-created_at')
     serializer_class = SingleCheckRequestSerializer
 

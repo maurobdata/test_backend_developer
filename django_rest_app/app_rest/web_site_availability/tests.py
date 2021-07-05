@@ -91,7 +91,7 @@ class InvalidRequestViewSetTests(TestCase):
         self.assertEqual(response.status_code, 404)
 
     @pytest.mark.unit
-    def test_invalid_single_check_request_id(self):
+    def test_invalid_url(self):
         """If url is not registered, respond 404."""
         response = self.client.get("/impossible_url/")
         self.assertEqual(response.status_code, 404)

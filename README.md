@@ -154,9 +154,22 @@ the system is able to use the standard urllib.request library. "lib_request_type
   If you want to replace it, you can remove the db.sqlite3 file 
   and create a new one by applying the following commands:
 
-    $ python manage.py migrate 
+    (venv) $ python manage.py migrate 
   
   Create new admin (or use preloaded in db admin:admin) (*it is not required)
 
-    $ python manage.py createsuperuser
+    (venv) $ python manage.py createsuperuser
 )
+
+## Test&Go
+
+    (venv) $ python manage.py test
+    Found 10 test(s).
+    Creating test database for alias 'default'...
+    System check identified no issues (0 silenced).
+    ..........
+    ----------------------------------------------------------------------
+    Ran 10 tests in 1.022s
+    
+    OK
+    Destroying test database for alias 'default'...
