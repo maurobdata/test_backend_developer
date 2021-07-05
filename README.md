@@ -43,6 +43,8 @@ Open http://127.0.0.1:8000/ in a browser or get with curl a list of urls of the 
       "sites":"http://127.0.0.1:8000/sites/",
     }
 
+![img.png](imgs/index.png)
+
 These are the top-level URLs that are reachable:
 Click on http://127.0.0.1:8000/check_requests/ or run:
 
@@ -84,7 +86,9 @@ Click on http://127.0.0.1:8000/sites/ or run:
       "n_requests_warning":0
     }
 
-![img.png](imgs/base_site.png)
+To add new Web Site to be monitored.
+
+![img.png](imgs/base_site_request.png)
 
 Thus enabling a section dedicated to the check requests for that particular url, 
 and the possibility to keep track of requests completed with success, failure, warning.
@@ -102,7 +106,25 @@ optionally specifying a different "regular_expression" each time.
     --data '{"regular_expression":"/*"}' \
     http://localhost:8000/sites/1/requests/
 
-![img.png](imgs/base_site_request.png)
+![img.png](imgs/site_request_empty.png)
+
+If you are interested in seeing the statistics of a single Web Site 
+you can also visit the url: http://localhost:8000/sites/1/
+
+![img.png](imgs/web_site_detail.png)
+
+or http://127.0.0.1:8000/check_requests/1/
+
+![img.png](imgs/single_check_request_detail.png)
+
+Where you can also choose to remove requests made. 
+Attention: remember that this is not a "soft delete", and your request will be deleted also from the db 
+as reminded by the confirmation message.
+
+Or manage your resources directly from the Django Admin screen: http://127.0.0.1:8000/admin/
+(in sql db admin credentials are Username: admin, Password: admin)
+
+![img.png](imgs/admin.png)
 
 ## Meaning of Fields
 
