@@ -31,8 +31,12 @@ STATICFILES_DIRS = (
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rbh(ogt!dcwcl!&92&19$qe6#)v_&5#^l4zlbg&y3htocb$lm('
+# Set SECRET_KEY in environment or use fake secret key
+try:
+    os.getenv(os.environ['SECRET_KEY'])
+    SECRET_KEY = os.environ['SECRET_KEY']
+except KeyError:
+    SECRET_KEY = 'django-insecure-rbh(ogt!dcwcl!&92&19$qe6#)v_&5#^l4zlbg&y3htocb$lm('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -51,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'djecrety',
 ]
 
 MIDDLEWARE = [

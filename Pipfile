@@ -90,6 +90,7 @@ MarkupSafe = "==2.0.1"
 Pygments = "==2.9.0"
 QtPy = "==1.9.0"
 Send2Trash = "==1.7.1"
+djecrety = "*"
 
 [dev-packages]
 
