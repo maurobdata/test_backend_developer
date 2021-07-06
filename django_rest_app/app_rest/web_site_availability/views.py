@@ -20,7 +20,7 @@ class WebSiteViewSet(viewsets.ModelViewSet):
     {"url": "[https://maieuticallabs.it/lavora-con-noi/](https://maieuticallabs.it/lavora-con-noi/)"}
 
     Then insert the id received to your url and navigate to:
-    [http://127.0.0.1:8000/sites/insert_id_here/requests/](http://127.0.0.1:8000/sites/1/requests/)"""
+    [https://test-backend-developer.herokuapp.com/sites/insert_id_here/requests/](https://test-backend-developer.herokuapp.com/sites/1/requests/)"""
     queryset = WebSite.objects.all().order_by('-created_at')
     serializer_class = WebSiteSerializer
 
