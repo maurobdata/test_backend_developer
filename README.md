@@ -1,9 +1,7 @@
 # Live
 ## https://test-backend-developer.herokuapp.com/
 
-This project has been developed for MaieuticalLab 
-
-https://maieuticallabs.it/lavora-con-noi/
+This project has been developed for Developer Application 
 
 to pass the test proposed in the file test_backend_developer.txt
 
