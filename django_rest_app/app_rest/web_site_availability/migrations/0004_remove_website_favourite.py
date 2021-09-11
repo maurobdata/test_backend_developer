@@ -6,12 +6,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web_site_availability', '0003_alter_singlecheckrequest_completed_at_and_more'),
+        (
+            "web_site_availability",
+            "0003_alter_singlecheckrequest_completed_at_and_more",
+        ),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='website',
-            name='favourite',
+            model_name="website",
+            name="favourite",
         ),
     ]

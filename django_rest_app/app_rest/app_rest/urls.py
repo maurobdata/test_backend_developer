@@ -19,14 +19,20 @@ from rest_framework import routers
 from web_site_availability import views
 
 router = routers.DefaultRouter()
-router.register(r'check_requests', views.SingleCheckRequestViewSet, basename='check_request')
-router.register(r'sites', views.WebSiteViewSet, basename='sites')
+router.register(
+    r"check_requests", views.SingleCheckRequestViewSet, basename="check_request"
+)
+router.register(r"sites", views.WebSiteViewSet, basename="sites")
 
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
+    path("", include(router.urls)),
+    path("admin/", admin.site.urls),
+    path("api-auth/", include("rest_framework.urls")),
     # sites check request
-    path('sites/<int:web_site_id>/requests/', views.web_site_check_request, name='sites_requests')
+    path(
+        "sites/<int:web_site_id>/requests/",
+        views.web_site_check_request,
+        name="sites_requests",
+    ),
 ]

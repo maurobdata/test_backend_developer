@@ -1,60 +1,62 @@
-SUCCESS = 'Success'
-FAIL = 'Fail'
-WARNING = 'Warning'
-ERROR = 'Error'
-more_info = '\n More info about HTTP Status Codes at: ' \
-            'https://www.restapitutorial.com/httpstatuscodes.html \n' \
-            ' RFC: https://datatracker.ietf.org/doc/html/rfc1945#section-6.1.1'
+SUCCESS = "Success"
+FAIL = "Fail"
+WARNING = "Warning"
+ERROR = "Error"
+more_info = (
+    "\n More info about HTTP Status Codes at: "
+    "https://www.restapitutorial.com/httpstatuscodes.html \n"
+    " RFC: https://datatracker.ietf.org/doc/html/rfc1945#section-6.1.1"
+)
 
 
 def _err():
     message_error = "Invalid http code"
     message_error += more_info
-    error = {'message': message_error, 'res': ERROR}
+    error = {"message": message_error, "res": ERROR}
     return error
 
 
 def _1xx():
     message = "This lets us know that the request was received"
     message += more_info
-    context = {'message': message, 'res': WARNING}
+    context = {"message": message, "res": WARNING}
     return context
 
 
 def _2xx():
     message = "This shows that the request was successful"
     message += more_info
-    context = {'message': message, 'res': SUCCESS}
+    context = {"message": message, "res": SUCCESS}
     return context
 
 
 def _3xx():
     message = "This is for redirects (temporary and permanent)"
     message += more_info
-    context = {'message': message, 'res': WARNING}
+    context = {"message": message, "res": WARNING}
     return context
 
 
 def _4xx():
     message = "Client errors"
     message += more_info
-    context = {'message': message, 'res': FAIL}
+    context = {"message": message, "res": FAIL}
     return context
 
 
 def _5xx():
     message = "Server errors"
     message += more_info
-    context = {'message': message, 'res': FAIL}
+    context = {"message": message, "res": FAIL}
     return context
 
 
 switcher = {
-    '1': _1xx,
-    '2': _2xx,
-    '3': _3xx,
-    '4': _4xx,
-    '5': _5xx,
+    "1": _1xx,
+    "2": _2xx,
+    "3": _3xx,
+    "4": _4xx,
+    "5": _5xx,
 }
 
 

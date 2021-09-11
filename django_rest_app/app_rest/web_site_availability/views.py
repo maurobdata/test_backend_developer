@@ -8,7 +8,11 @@ from .lib.custom_status_code import map_code_to_message
 from .lib.request_handler import get_generic_check_request
 from .models import WebSite, SingleCheckRequest
 
-from .serializers import WebSiteSerializer, WebSiteCheckRequestSerializer, SingleCheckRequestSerializer
+from .serializers import (
+    WebSiteSerializer,
+    WebSiteCheckRequestSerializer,
+    SingleCheckRequestSerializer,
+)
 
 
 class WebSiteViewSet(viewsets.ModelViewSet):
@@ -21,11 +25,12 @@ class WebSiteViewSet(viewsets.ModelViewSet):
 
     Then insert the id received to your url and navigate to:
     [https://test-backend-developer.herokuapp.com/sites/insert_id_here/requests/](https://test-backend-developer.herokuapp.com/sites/1/requests/)"""
-    queryset = WebSite.objects.all().order_by('-created_at')
+
+    queryset = WebSite.objects.all().order_by("-created_at")
     serializer_class = WebSiteSerializer
 
 
-@api_view(['GET', 'POST'])
+@api_view(["GET", "POST"])
 def web_site_check_request(request, web_site_id):
     """
     Make as many Check Requests as you want to the url of this
@@ -35,23 +40,25 @@ def web_site_check_request(request, web_site_id):
     """
 
     web_site = get_object_or_404(WebSite, pk=web_site_id)
-    if request.method == 'GET':
+    if request.method == "GET":
         check_requests = web_site.websitecheckrequest_set.all()
         serializer = WebSiteCheckRequestSerializer(check_requests, many=True)
         return Response(serializer.data)
-    elif request.method == 'POST':
+    elif request.method == "POST":
         mutable_request_data = request.data.copy()
-        mutable_request_data['url'] = web_site.url
+        mutable_request_data["url"] = web_site.url
         data_check_request = get_generic_check_request(mutable_request_data)
         check_request = web_site.websitecheckrequest_set.create(**data_check_request)
-        serializer = WebSiteCheckRequestSerializer(instance=check_request, data=data_check_request)
+        serializer = WebSiteCheckRequestSerializer(
+            instance=check_request, data=data_check_request
+        )
         if serializer.is_valid():
-            code_context = map_code_to_message(data_check_request.get('status_code'))
-            if code_context['res'] == 'Success':
+            code_context = map_code_to_message(data_check_request.get("status_code"))
+            if code_context["res"] == "Success":
                 web_site.n_requests_success += 1
-            elif code_context['res'] == 'Warning':
+            elif code_context["res"] == "Warning":
                 web_site.n_requests_warning += 1
-            elif code_context['res'] == 'Fail':
+            elif code_context["res"] == "Fail":
                 web_site.n_requests_fail += 1
             web_site.save()
             serializer.save()
@@ -70,16 +77,19 @@ class SingleCheckRequestViewSet(viewsets.ModelViewSet):
         "regular_expression": "/*Yes, I can"
     }
     """
-    queryset = SingleCheckRequest.objects.all().order_by('-created_at')
+
+    queryset = SingleCheckRequest.objects.all().order_by("-created_at")
     serializer_class = SingleCheckRequestSerializer
 
     def create(self, request, *args, **kwargs):
         """Return all single check requests, or create a new one."""
-        url = request.data.get('url')
+        url = request.data.get("url")
         data_check_request = get_generic_check_request(request.data)
-        data_check_request['url'] = url
+        data_check_request["url"] = url
         check_request = SingleCheckRequest(**data_check_request)
-        serializer = SingleCheckRequestSerializer(instance=check_request, data=data_check_request)
+        serializer = SingleCheckRequestSerializer(
+            instance=check_request, data=data_check_request
+        )
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

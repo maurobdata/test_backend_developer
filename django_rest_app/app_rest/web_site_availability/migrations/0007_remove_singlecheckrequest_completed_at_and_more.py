@@ -6,20 +6,23 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web_site_availability', '0006_alter_singlecheckrequest_pattern_regular_expression_and_more'),
+        (
+            "web_site_availability",
+            "0006_alter_singlecheckrequest_pattern_regular_expression_and_more",
+        ),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='singlecheckrequest',
-            name='completed_at',
+            model_name="singlecheckrequest",
+            name="completed_at",
         ),
         migrations.RemoveField(
-            model_name='website',
-            name='completed_at',
+            model_name="website",
+            name="completed_at",
         ),
         migrations.RemoveField(
-            model_name='websitecheckrequest',
-            name='completed_at',
+            model_name="websitecheckrequest",
+            name="completed_at",
         ),
     ]

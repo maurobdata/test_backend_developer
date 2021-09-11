@@ -61,20 +61,36 @@ class WebSiteViewSetTests(TestCase):
         self.assertIsNone(response.context)
 
     @pytest.mark.unit
-    @freeze_time('2011-09-11T00:00:00Z', as_kwarg='frozen_time')
+    @freeze_time("2011-09-11T00:00:00Z", as_kwarg="frozen_time")
     def test_one_web_site(self, frozen_time):
-        """ /sites/ may also contain a single web site"""
+        """/sites/ may also contain a single web site"""
         dj_format = "%Y-%m-%dT%H:%M:%SZ"
         time = frozen_time.time_to_freeze.date().strftime(dj_format)
         web_site = create_web_site()
         response = self.client.get("/sites/")
 
         self.assertEqual(response.status_code, 200)
-        self.assertDictEqual(response.json(), {'count': 1, 'next': None, 'previous': None, 'results': [
-            {'id': 1, 'created_at': time, 'updated_at': time, 'url': web_site.url,
-             'mnemonic_name': web_site.mnemonic_name, 'note': web_site.note,
-             'n_requests_success': web_site.n_requests_success,
-             'n_requests_fail': web_site.n_requests_fail, 'n_requests_warning': web_site.n_requests_warning}]})
+        self.assertDictEqual(
+            response.json(),
+            {
+                "count": 1,
+                "next": None,
+                "previous": None,
+                "results": [
+                    {
+                        "id": 1,
+                        "created_at": time,
+                        "updated_at": time,
+                        "url": web_site.url,
+                        "mnemonic_name": web_site.mnemonic_name,
+                        "note": web_site.note,
+                        "n_requests_success": web_site.n_requests_success,
+                        "n_requests_fail": web_site.n_requests_fail,
+                        "n_requests_warning": web_site.n_requests_warning,
+                    }
+                ],
+            },
+        )
 
 
 class InvalidRequestViewSetTests(TestCase):
@@ -99,7 +115,7 @@ class InvalidRequestViewSetTests(TestCase):
 
 class SingleCheckRequestViewSetTests(TestCase):
     @pytest.mark.unit
-    @freeze_time('1914-07-28T00:00:00Z', as_kwarg='frozen_time')
+    @freeze_time("1914-07-28T00:00:00Z", as_kwarg="frozen_time")
     def test_get_web_site_check_request(self, frozen_time):
         """Web Site Check Request Happy path get."""
         dj_format = "%Y-%m-%dT%H:%M:%SZ"
@@ -108,13 +124,27 @@ class SingleCheckRequestViewSetTests(TestCase):
         check_request = create_web_site_check_request(web_site, time)
         response = self.client.get("/sites/1/requests/")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [{'id': 1, 'created_at': time, 'updated_at': time, 'response_time': None,
-                                            'status_code': None, 'response': None, 'regular_expression': None,
-                                            'match_regular_expression': None, 'pattern_regular_expression': None,
-                                            'lib_request_type': None, 'url_web_site': 1}])
+        self.assertEqual(
+            response.json(),
+            [
+                {
+                    "id": 1,
+                    "created_at": time,
+                    "updated_at": time,
+                    "response_time": None,
+                    "status_code": None,
+                    "response": None,
+                    "regular_expression": None,
+                    "match_regular_expression": None,
+                    "pattern_regular_expression": None,
+                    "lib_request_type": None,
+                    "url_web_site": 1,
+                }
+            ],
+        )
 
     @pytest.mark.unit
-    @freeze_time('2914-07-28T00:00:00Z', as_kwarg='frozen_time')
+    @freeze_time("2914-07-28T00:00:00Z", as_kwarg="frozen_time")
     def test_post_web_site_check_request_no_params(self, frozen_time):
         """Web Site Check Request Happy path post."""
         dj_format = "%Y-%m-%dT%H:%M:%SZ"
@@ -126,13 +156,15 @@ class SingleCheckRequestViewSetTests(TestCase):
         self.assertEqual(response.status_code, 201)
 
     @pytest.mark.unit
-    @freeze_time('2914-07-28T00:00:00Z', as_kwarg='frozen_time')
+    @freeze_time("2914-07-28T00:00:00Z", as_kwarg="frozen_time")
     def test_post_web_site_check_request(self, frozen_time):
         """Web Site Check Request Happy path post."""
         dj_format = "%Y-%m-%dT%H:%M:%SZ"
         time = frozen_time.time_to_freeze.date().strftime(dj_format)
         web_site = create_web_site()
         check_request = create_web_site_check_request(web_site, time)
-        response = self.client.post("/sites/1/requests/", {"url": "https://www.google.com/"})
+        response = self.client.post(
+            "/sites/1/requests/", {"url": "https://www.google.com/"}
+        )
 
         self.assertEqual(response.status_code, 201)

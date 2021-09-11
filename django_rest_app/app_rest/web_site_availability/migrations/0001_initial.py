@@ -9,63 +9,129 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='SingleCheckRequest',
+            name="SingleCheckRequest",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('completed_at', models.DateTimeField(editable=False, null=True)),
-                ('url', models.CharField(max_length=200, validators=[django.core.validators.URLValidator])),
-                ('response_time', models.FloatField(editable=False, null=True)),
-                ('status_code', models.IntegerField(editable=False, null=True)),
-                ('response', models.TextField(editable=False, max_length=100000, null=True)),
-                ('regular_expression', models.CharField(max_length=200, null=True, validators=[django.core.validators.RegexValidator])),
-                ('match_regular_expression', models.BooleanField(editable=False, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("completed_at", models.DateTimeField(editable=False, null=True)),
+                (
+                    "url",
+                    models.CharField(
+                        max_length=200, validators=[django.core.validators.URLValidator]
+                    ),
+                ),
+                ("response_time", models.FloatField(editable=False, null=True)),
+                ("status_code", models.IntegerField(editable=False, null=True)),
+                (
+                    "response",
+                    models.TextField(editable=False, max_length=100000, null=True),
+                ),
+                (
+                    "regular_expression",
+                    models.CharField(
+                        max_length=200,
+                        null=True,
+                        validators=[django.core.validators.RegexValidator],
+                    ),
+                ),
+                (
+                    "match_regular_expression",
+                    models.BooleanField(editable=False, null=True),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='WebSite',
+            name="WebSite",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('completed_at', models.DateTimeField(editable=False, null=True)),
-                ('url', models.CharField(max_length=200, validators=[django.core.validators.URLValidator])),
-                ('mnemonic_name', models.CharField(max_length=200, null=True)),
-                ('note', models.CharField(max_length=200, null=True)),
-                ('n_requests_success', models.IntegerField(default=0, editable=False)),
-                ('n_requests_fail', models.IntegerField(default=0, editable=False)),
-                ('n_requests_warning', models.IntegerField(default=0, editable=False)),
-                ('favourite', models.BooleanField(null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("completed_at", models.DateTimeField(editable=False, null=True)),
+                (
+                    "url",
+                    models.CharField(
+                        max_length=200, validators=[django.core.validators.URLValidator]
+                    ),
+                ),
+                ("mnemonic_name", models.CharField(max_length=200, null=True)),
+                ("note", models.CharField(max_length=200, null=True)),
+                ("n_requests_success", models.IntegerField(default=0, editable=False)),
+                ("n_requests_fail", models.IntegerField(default=0, editable=False)),
+                ("n_requests_warning", models.IntegerField(default=0, editable=False)),
+                ("favourite", models.BooleanField(null=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='WebSiteCheckRequest',
+            name="WebSiteCheckRequest",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('completed_at', models.DateTimeField(editable=False, null=True)),
-                ('response_time', models.FloatField(editable=False, null=True)),
-                ('status_code', models.IntegerField(editable=False, null=True)),
-                ('response', models.TextField(editable=False, max_length=100000, null=True)),
-                ('regular_expression', models.CharField(max_length=200, null=True, validators=[django.core.validators.RegexValidator])),
-                ('match_regular_expression', models.BooleanField(editable=False, null=True)),
-                ('url_under_investigation', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.CASCADE, to='web_site_availability.website')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("completed_at", models.DateTimeField(editable=False, null=True)),
+                ("response_time", models.FloatField(editable=False, null=True)),
+                ("status_code", models.IntegerField(editable=False, null=True)),
+                (
+                    "response",
+                    models.TextField(editable=False, max_length=100000, null=True),
+                ),
+                (
+                    "regular_expression",
+                    models.CharField(
+                        max_length=200,
+                        null=True,
+                        validators=[django.core.validators.RegexValidator],
+                    ),
+                ),
+                (
+                    "match_regular_expression",
+                    models.BooleanField(editable=False, null=True),
+                ),
+                (
+                    "url_under_investigation",
+                    models.ForeignKey(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="web_site_availability.website",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

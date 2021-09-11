@@ -6,18 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web_site_availability', '0005_singlecheckrequest_pattern_regular_expression_and_more'),
+        (
+            "web_site_availability",
+            "0005_singlecheckrequest_pattern_regular_expression_and_more",
+        ),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='singlecheckrequest',
-            name='pattern_regular_expression',
+            model_name="singlecheckrequest",
+            name="pattern_regular_expression",
             field=models.CharField(editable=False, max_length=200, null=True),
         ),
         migrations.AlterField(
-            model_name='websitecheckrequest',
-            name='pattern_regular_expression',
+            model_name="websitecheckrequest",
+            name="pattern_regular_expression",
             field=models.CharField(editable=False, max_length=200, null=True),
         ),
     ]
