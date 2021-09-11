@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from .models import WebSite, WebSiteCheckRequest, SingleCheckRequest, CheckRequest
+from .models import (CheckRequest, SingleCheckRequest, WebSite,
+                     WebSiteCheckRequest)
 
 
 class WebSiteSerializer(serializers.ModelSerializer):

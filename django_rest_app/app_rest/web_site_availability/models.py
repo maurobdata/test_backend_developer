@@ -1,4 +1,4 @@
-from django.core.validators import URLValidator, RegexValidator
+from django.core.validators import RegexValidator, URLValidator
 from django.db import models
 
 

@@ -1,9 +1,9 @@
 """"""
-import pytest
+from datetime import datetime
 
+import pytest
 from django.test import TestCase
 from freezegun import freeze_time
-from datetime import datetime
 
 from .models import WebSite
 

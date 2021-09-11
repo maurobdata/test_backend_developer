@@ -1,18 +1,13 @@
 from django.shortcuts import get_object_or_404
-
 from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .lib.custom_status_code import map_code_to_message
 from .lib.request_handler import get_generic_check_request
-from .models import WebSite, SingleCheckRequest
-
-from .serializers import (
-    WebSiteSerializer,
-    WebSiteCheckRequestSerializer,
-    SingleCheckRequestSerializer,
-)
+from .models import SingleCheckRequest, WebSite
+from .serializers import (SingleCheckRequestSerializer,
+                          WebSiteCheckRequestSerializer, WebSiteSerializer)
 
 
 class WebSiteViewSet(viewsets.ModelViewSet):
