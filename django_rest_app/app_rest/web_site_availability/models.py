@@ -40,7 +40,7 @@ class CheckRequest(TimeStampMixin):
     response = models.TextField(max_length=100000, null=True, editable=False)
     # response = models.BinaryField() will be more efficient
     regular_expression = models.CharField(
-        max_length=200, null=True, validators=[RegexValidator()]
+        max_length=200, null=True, blank=True, validators=[RegexValidator()]
     )
     match_regular_expression = models.BooleanField(null=True, editable=False)
     pattern_regular_expression = models.CharField(
