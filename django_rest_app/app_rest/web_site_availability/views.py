@@ -14,10 +14,6 @@ class WebSiteViewSet(viewsets.ModelViewSet):
     """
     The WebSite allows you to save a url to make multiple requests.
     Url is required, other fields are for your pleasure.
-    You could use this if you're on the fence ;)
-
-    {"url": "[https://maieuticallabs.it/lavora-con-noi/](https://maieuticallabs.it/lavora-con-noi/)"}
-
     Then insert the id received to your url and navigate to:
     [https://test-backend-developer.herokuapp.com/sites/insert_id_here/requests/](https://test-backend-developer.herokuapp.com/sites/1/requests/)"""
 
@@ -68,8 +64,8 @@ class SingleCheckRequestViewSet(viewsets.ModelViewSet):
     For example you could try ;)
 
     {
-        "url": "[https://maieuticallabs.it/lavora-con-noi/](https://maieuticallabs.it/lavora-con-noi/)",
-        "regular_expression": "/*Yes, I can"
+        "url": "[https://regex101.com/](https://regex101.com/)",
+        "regular_expression": "abc*"
     }
     """
 
