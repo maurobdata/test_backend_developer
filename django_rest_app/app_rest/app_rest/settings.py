@@ -16,6 +16,7 @@ from pathlib import Path
 try:
     # Configure Django App for Heroku.
     import django_heroku
+
     heroku = True
 except ImportError:
     heroku = False

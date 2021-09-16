@@ -6,8 +6,11 @@ from rest_framework.response import Response
 from .lib.custom_status_code import map_code_to_message
 from .lib.request_handler import get_generic_check_request
 from .models import SingleCheckRequest, WebSite
-from .serializers import (SingleCheckRequestSerializer,
-                          WebSiteCheckRequestSerializer, WebSiteSerializer)
+from .serializers import (
+    SingleCheckRequestSerializer,
+    WebSiteCheckRequestSerializer,
+    WebSiteSerializer,
+)
 
 
 class WebSiteViewSet(viewsets.ModelViewSet):
