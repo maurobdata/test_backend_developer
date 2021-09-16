@@ -12,8 +12,13 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 import os
 from pathlib import Path
 
-# Configure Django App for Heroku.
-import django_heroku
+# Try to import django-heroku depending on Travis or Heroku
+try:
+    # Configure Django App for Heroku.
+    import django_heroku
+    heroku = True
+except ImportError:
+    heroku = False
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -153,5 +158,6 @@ REST_FRAMEWORK = {
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# End Configuration for Heroku.
-django_heroku.settings(locals())
+if heroku:
+    # End Configuration for Heroku.
+    django_heroku.settings(locals())

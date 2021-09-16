@@ -4,4 +4,31 @@ orbs:
 workflows:
   heroku_deploy:
     jobs:
+      - build
       - heroku/deploy-via-git
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements-build.txt" }}
+      - run:
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements-build.txt
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements-build.txt" }}
+          paths:
+            - "venv"
+      - run:
+          name: Running tests
+          command: |
+            . venv/bin/activate
+            python3 django_rest_app/app_rest/manage.py test django_rest_app/app_rest --settings=app_rest.settings
+      - store_artifacts:
+          path: test-reports/
+          destination: python_app
