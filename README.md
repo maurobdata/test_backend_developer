@@ -1,11 +1,11 @@
-# Live
+# Live [![CircleCI](https://circleci.com/gh/maurobdata/test_backend_developer/tree/master.svg?style=svg)](https://circleci.com/gh/maurobdata/test_backend_developer/tree/master)
 ## https://test-backend-developer.herokuapp.com/
 
-This project has been developed for perform simple Requests.
+This project has been developed for performing simple Requests.
 
 # Basic Instructions
 
-(Please use and activate a virtualenv: https://pypi.org/project/virtualenv/)
+(Please use and activate a virtual enviroment: https://pypi.org/project/virtualenv/)
 
     $ virtualenv venv
     $ source venv/bin/activate
