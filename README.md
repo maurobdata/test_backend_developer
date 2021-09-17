@@ -1,7 +1,13 @@
 # Live [![CircleCI](https://circleci.com/gh/maurobdata/test_backend_developer/tree/master.svg?style=svg)](https://circleci.com/gh/maurobdata/test_backend_developer/tree/master)
 ## https://test-backend-developer.herokuapp.com/
 
-This project has been developed for performing simple Requests.
+The system monitors the availability of a website. 
+It includes two HTTP APIs that receive an URL and an optional regular expression.
+For each request, I save in the database the response time, the status
+code and if the content of the response matches with the optional regular expression.
+The solution contains some tests and the setup is easy.
+
+    $ docker compose up
 
 # Basic Instructions
 
